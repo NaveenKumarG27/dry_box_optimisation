@@ -137,10 +137,21 @@ def main():
             file_name='final_cost.xlsx',
         )
 
-        b= data.groupby("lowest_cost")["percentage"].unique()
-        for lowest_cost, percentages in b.items():
+        b = data.groupby("lowest_cost")["percentage"].unique()
+
+        st.write("Cost Calculation Result:")
+
+        # Sort the dictionary by the lowest_cost key in ascending order
+        sorted_b = dict(sorted(b.items(), key=lambda x: x[0]))
+
+        # Create a table to display the data
+        table_data = []
+        for lowest_cost, percentages in sorted_b.items():
             for percentage in percentages:
-                st.write(lowest_cost, percentage)
+                table_data.append({"Lowest Cost": lowest_cost, "Percentage": percentage})
+
+        st.table(table_data)
+
 
 
 if __name__ == "__main__":
