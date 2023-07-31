@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import math
 from openpyxl.utils.dataframe import dataframe_to_rows
-
+from streamlit import download_button
 
 
 def mu(item, vol):
@@ -99,6 +99,7 @@ def calculate_cost(merged_df,length,breadth,height):
     data["percentage"] = total_count / count * 100
 
     return data
+# ... (previous code)
 
 def main():
     st.title("Crate Optimization and Cost Calculation")
@@ -125,8 +126,8 @@ def main():
         # Write the DataFrame to the Excel file
         df.to_excel(excel_writer, index=False)
 
-        # Save the Excel writer object
-        excel_writer.save()
+        # Close the Excel writer object
+        excel_writer.close()
 
         # Create a download button
         from streamlit import download_button
@@ -151,8 +152,6 @@ def main():
                 table_data.append({"Lowest Cost": lowest_cost, "Percentage": percentage})
 
         st.table(table_data)
-
-
 
 if __name__ == "__main__":
     main()
